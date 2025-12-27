@@ -11,7 +11,7 @@
             --romantic-pink: #ffb7c5;
             --deep-rose: #d81b60;
             --white: #ffffff;
-            --transition-speed: 1.5s;
+            --transition-speed: 1.2s;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -23,78 +23,74 @@
             background: #e1f5fe; 
         }
 
+        /* Elements */
         .scenery { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-        
         .cloud { position: absolute; background: white; border-radius: 50px; opacity: 0.6; animation: floatCloud 25s linear infinite; }
         @keyframes floatCloud { from { left: -150px; } to { left: 110vw; } }
-
         .petal { position: absolute; top: -10%; font-size: 20px; animation: fall linear infinite; opacity: 0.8; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* MOODS */
+        /* Mood Backgrounds */
         body.day { background: #e1f5fe; }
         body.sunset { background: linear-gradient(to bottom, #ff9e80, #fce4ec); }
         body.night { background: linear-gradient(to bottom, #1a237e, #4a148c); }
 
-        /* THE CARD */
+        /* Story Card */
         .card-container { display: none; width: 85%; max-width: 340px; perspective: 1000px; z-index: 10; }
         .mini-card {
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
-            padding: 30px 25px; border-radius: 30px; border: 2px solid white;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); text-align: center;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            padding: 35px 25px; border-radius: 30px; border: 2px solid white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15); text-align: center;
             transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .character-holder {
-            width: 90px; height: 90px; margin: -75px auto 15px;
-            background: white; border-radius: 50%; padding: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .character-holder img { width: 100%; height: 100%; border-radius: 50%; }
+        .emoji-header { font-size: 50px; margin-bottom: 15px; display: block; }
 
-        h2 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: var(--deep-rose); margin-bottom: 12px; }
-        p { line-height: 1.8; font-size: 1.05rem; min-height: 5em; font-weight: 500; color: #444; }
+        h2 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-rose); margin-bottom: 12px; }
+        p { line-height: 1.6; font-size: 1.05rem; min-height: 5em; font-weight: 500; color: #444; }
 
-        .nav-btn {
-            margin-top: 20px; padding: 12px 35px; background: var(--romantic-pink);
-            color: white; border: none; border-radius: 25px; font-weight: 600;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        .nav-btn { margin-top: 20px; padding: 12px 30px; background: var(--romantic-pink); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .nav-btn:active { transform: scale(0.95); }
 
-        /* ENVELOPE */
-        .envelope-wrapper { cursor: pointer; text-align: center; }
-        .envelope { width: 240px; height: 150px; background: var(--romantic-pink); border-radius: 0 0 15px 15px; position: relative; }
-        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-left: 120px solid transparent; border-right: 120px solid transparent; border-top: 90px solid #ff9ead; transform-origin: top; transition: 0.5s; z-index: 2; }
+        /* Envelopes */
+        .envelope-wrapper { cursor: pointer; text-align: center; z-index: 20; }
+        .envelope { width: 220px; height: 140px; background: var(--romantic-pink); border-radius: 0 0 10px 10px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-top: 85px solid #ff9ead; transform-origin: top; transition: 0.5s; z-index: 2; }
         .open .envelope::before { transform: rotateX(180deg); }
-        .heart-seal { position: absolute; top: 55px; left: 50%; transform: translateX(-50%); font-size: 45px; animation: beat 1.5s infinite; z-index: 3; }
+        .heart-seal { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); font-size: 45px; animation: beat 1.5s infinite; z-index: 3; }
         @keyframes beat { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.2); } }
 
-        .typing::after { content: '🌸'; animation: blink 0.8s infinite; }
+        /* Typewriter Cursor */
+        .typing::after { content: '🌸'; animation: blink 0.8s infinite; margin-left: 5px; }
         @keyframes blink { 50% { opacity: 0; } }
-        #music-btn { position: fixed; top: 20px; right: 20px; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: none; z-index: 100; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        #music-btn { position: fixed; top: 20px; right: 20px; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: none; z-index: 100; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="day">
 
     <div class="scenery" id="scenery-objects"></div>
     
-    <audio id="bg-music" loop>
-        <source src="https://www.myinstants.com/media/sounds/indila-love-story-instrumental-piano.mp3" type="audio/mpeg">
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://files.catbox.moe/979685.mp3" type="audio/mpeg">
     </audio>
 
     <button id="music-btn" onclick="toggleMusic()">🎵</button>
 
     <div id="intro" class="envelope-wrapper" onclick="startStory()">
         <div class="envelope"><div class="heart-seal">❤️</div></div>
-        <p style="margin-top: 25px; color: var(--deep-rose); font-weight: 600; font-size: 1.1rem;">A message for Avinya...</p>
+        <p style="margin-top: 25px; color: var(--deep-rose); font-weight: 600;">Tap to open, Avinya</p>
+    </div>
+
+    <div id="poem-intro" class="envelope-wrapper" style="display: none;" onclick="startPoem()">
+        <div class="envelope" style="background: #d81b60;"><div class="heart-seal">✉️</div></div>
+        <p style="margin-top: 25px; color: var(--deep-rose); font-weight: 600;">Wait, there's more...</p>
     </div>
 
     <div class="card-container" id="card-wrap">
         <div class="mini-card" id="main-card">
-            <div class="character-holder">
-                <img id="char-icon" src="" alt="cute icon">
-            </div>
-            <h2 id="title">🌸 Hey Avinya</h2>
+            <span class="emoji-header" id="emoji-display">🌸</span>
+            <h2 id="title"></h2>
             <p id="text" class="typewriter"></p>
             <button id="nextBtn" class="nav-btn" onclick="nextStep()">Next Page →</button>
         </div>
@@ -102,30 +98,36 @@
 
     <script>
         const music = document.getElementById('bg-music');
-        const story = [
-            { title: "🌸 Hey Avinya", text: "This isn’t anything dramatic. Just a quiet pause in a moving world where a thought chose to stay.", mood: "day", img: "bunny" },
-            { title: "✨ Connections", text: "Some connections don’t announce themselves. They arrive gently, through simple, honest conversations.", mood: "day", img: "cat" },
-            { title: "🌷 Since November", text: "Distance hasn't stopped words from flowing naturally. Every exchange has been a quiet highlight.", mood: "sunset", img: "panda" },
-            { title: "🌙 Effortless", text: "I like that our laughter arrives without effort, and even the silence between words feels comfortable.", mood: "sunset", img: "fox" },
-            { title: "💫 You're Enough", text: "Just a gentle reminder that being you, exactly the way you are, is already more than enough.", mood: "night", img: "koala" },
-            { title: "🌼 Soft & Steady", text: "Some things aren’t meant to be rushed. They simply exist, soft and steady, asking only for time.", mood: "night", img: "bear" },
-            { title: "✍️ A Smile", text: "If this made you smile even for a single second, then it did exactly what it was meant to do.", mood: "night", img: "deer" }
+        
+        const messages = [
+            { title: "🌸 Hey Avinya", text: "This isn’t anything dramatic. Just a quiet pause in a moving world where a thought chose to stay.", mood: "day", emoji: "🐰" },
+            { title: "✨ Connections", text: "Some connections don’t announce themselves. They arrive gently, through simple, honest conversations.", mood: "day", emoji: "🐱" },
+            { title: "🌷 Since November", text: "Distance hasn't stopped words from flowing naturally. Every exchange has been a quiet highlight.", mood: "sunset", emoji: "🐼" },
+            { title: "💫 You're Enough", text: "Just a gentle reminder that being you, exactly the way you are, is already more than enough.", mood: "sunset", emoji: "🐨" }
+        ];
+
+        const poems = [
+            { title: "🌙 Softly", text: "There is distance — like space between two notes of the same song. Not heavy, just present.", mood: "night", emoji: "🦊" },
+            { title: "⭐ Time", text: "Time behaves differently here. Unbothered by clocks, just the comfort of being understood.", mood: "night", emoji: "🐻" },
+            { title: "✍️ A Smile", text: "If this made you smile even for a single second, then it did exactly what it was meant to do.", mood: "night", emoji: "🦌" }
         ];
 
         let index = 0;
+        let isPoemMode = false;
         let isTyping = false;
 
         function initScenery() {
             const sc = document.getElementById('scenery-objects');
+            // Floating Clouds
             for(let i=0; i<4; i++) {
                 let c = document.createElement('div');
                 c.className = 'cloud';
                 c.style.top = (Math.random()*30) + '%';
-                c.style.width = (Math.random()*80+80) + 'px';
-                c.style.height = '35px';
+                c.style.width = '120px'; c.style.height = '40px';
                 c.style.animationDelay = (i * 5) + 's';
                 sc.appendChild(c);
             }
+            // Falling Petals
             setInterval(() => {
                 let p = document.createElement('div');
                 p.className = 'petal';
@@ -134,13 +136,13 @@
                 p.style.animationDuration = (Math.random() * 3 + 3) + 's';
                 sc.appendChild(p);
                 setTimeout(() => p.remove(), 5000);
-            }, 600);
+            }, 700);
         }
 
         function startStory() {
             document.getElementById('intro').classList.add('open');
             music.volume = 0.5;
-            music.play().catch(e => console.log("Audio started"));
+            music.play().catch(e => console.log("Audio play interaction required"));
             document.getElementById('music-btn').style.display = 'block';
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
@@ -151,26 +153,39 @@
             }, 600);
         }
 
+        function startPoem() {
+            document.getElementById('poem-intro').classList.add('open');
+            confetti({ particleCount: 100, spread: 70 });
+            setTimeout(() => {
+                document.getElementById('poem-intro').style.display = 'none';
+                document.getElementById('card-wrap').style.display = 'block';
+                isPoemMode = true; index = 0;
+                showPage();
+            }, 600);
+        }
+
         function showPage() {
-            const data = story[index];
+            const data = isPoemMode ? poems[index] : messages[index];
             const card = document.getElementById('main-card');
-            const textEl = document.getElementById('text');
+            
             document.body.className = data.mood;
-            document.getElementById('char-icon').src = `https://api.dicebear.com/7.x/cute-creatures/svg?seed=${data.img}`;
+            document.getElementById('emoji-display').textContent = data.emoji;
+            
             card.style.transform = "rotateY(90deg)";
             setTimeout(() => {
                 document.getElementById('title').textContent = data.title;
-                textEl.textContent = "";
+                document.getElementById('text').textContent = "";
                 card.style.transform = "rotateY(0deg)";
-                type(data.text);
+                typeText(data.text);
             }, 300);
         }
 
-        function type(msg) {
+        function typeText(msg) {
             isTyping = true;
             let i = 0;
             const el = document.getElementById('text');
             el.classList.add('typing');
+            
             function step() {
                 if (i < msg.length) {
                     el.textContent += msg.charAt(i);
@@ -179,7 +194,9 @@
                 } else {
                     el.classList.remove('typing');
                     isTyping = false;
-                    if(index === story.length - 1) document.getElementById('nextBtn').textContent = "With love, Yatin ❤";
+                    if(isPoemMode && index === poems.length -1) {
+                        document.getElementById('nextBtn').textContent = "With love, Yatin ❤";
+                    }
                 }
             }
             step();
@@ -187,16 +204,22 @@
 
         function nextStep() {
             if (isTyping) return;
-            if (index < story.length - 1) {
+            const currentArray = isPoemMode ? poems : messages;
+            
+            if (index < currentArray.length - 1) {
                 index++;
                 showPage();
                 if(index % 2 === 0) confetti({ particleCount: 40, spread: 50 });
+            } else if (!isPoemMode) {
+                document.getElementById('card-wrap').style.display = 'none';
+                document.getElementById('poem-intro').style.display = 'block';
             } else {
                 confetti({ particleCount: 200, spread: 100 });
             }
         }
 
         function toggleMusic() { music.paused ? music.play() : music.pause(); }
+
         initScenery();
     </script>
 </body>
