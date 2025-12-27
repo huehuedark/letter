@@ -11,7 +11,7 @@
             --romantic-pink: #ffb7c5;
             --deep-rose: #d81b60;
             --white: #ffffff;
-            --transition-speed: 1.2s;
+            --transition-speed: 1.5s;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -23,19 +23,20 @@
             background: #e1f5fe; 
         }
 
-        /* Elements */
+        /* NATURE ANIMATIONS */
         .scenery { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
         .cloud { position: absolute; background: white; border-radius: 50px; opacity: 0.6; animation: floatCloud 25s linear infinite; }
         @keyframes floatCloud { from { left: -150px; } to { left: 110vw; } }
-        .petal { position: absolute; top: -10%; font-size: 20px; animation: fall linear infinite; opacity: 0.8; }
+        
+        .petal { position: absolute; top: -10%; font-size: 20px; animation: fall linear infinite; opacity: 0.8; z-index: 1; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Mood Backgrounds */
+        /* MOOD TRANSITIONS */
         body.day { background: #e1f5fe; }
         body.sunset { background: linear-gradient(to bottom, #ff9e80, #fce4ec); }
         body.night { background: linear-gradient(to bottom, #1a237e, #4a148c); }
 
-        /* Story Card */
+        /* STORY CARD */
         .card-container { display: none; width: 85%; max-width: 340px; perspective: 1000px; z-index: 10; }
         .mini-card {
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
@@ -44,15 +45,15 @@
             transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .emoji-header { font-size: 50px; margin-bottom: 15px; display: block; }
+        .emoji-header { font-size: 50px; margin-bottom: 10px; display: block; }
 
-        h2 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-rose); margin-bottom: 12px; }
-        p { line-height: 1.6; font-size: 1.05rem; min-height: 5em; font-weight: 500; color: #444; }
+        h2 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-rose); margin-bottom: 15px; }
+        p { line-height: 1.7; font-size: 1rem; min-height: 6em; font-weight: 500; color: #444; white-space: pre-line; }
 
-        .nav-btn { margin-top: 20px; padding: 12px 30px; background: var(--romantic-pink); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .nav-btn { margin-top: 20px; padding: 12px 35px; background: var(--romantic-pink); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.2); }
         .nav-btn:active { transform: scale(0.95); }
 
-        /* Envelopes */
+        /* ENVELOPES */
         .envelope-wrapper { cursor: pointer; text-align: center; z-index: 20; }
         .envelope { width: 220px; height: 140px; background: var(--romantic-pink); border-radius: 0 0 10px 10px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-top: 85px solid #ff9ead; transform-origin: top; transition: 0.5s; z-index: 2; }
@@ -60,11 +61,11 @@
         .heart-seal { position: absolute; top: 45px; left: 50%; transform: translateX(-50%); font-size: 45px; animation: beat 1.5s infinite; z-index: 3; }
         @keyframes beat { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.2); } }
 
-        /* Typewriter Cursor */
-        .typing::after { content: '🌸'; animation: blink 0.8s infinite; margin-left: 5px; }
+        /* TYPEWRITER CURSOR */
+        .typing::after { content: '🌸'; animation: blink 0.8s infinite; margin-left: 5px; font-size: 0.9rem; }
         @keyframes blink { 50% { opacity: 0; } }
 
-        #music-btn { position: fixed; top: 20px; right: 20px; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: none; z-index: 100; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        #music-btn { position: fixed; top: 20px; right: 20px; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: none; z-index: 100; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
     </style>
 </head>
 <body class="day">
@@ -84,7 +85,7 @@
 
     <div id="poem-intro" class="envelope-wrapper" style="display: none;" onclick="startPoem()">
         <div class="envelope" style="background: #d81b60;"><div class="heart-seal">✉️</div></div>
-        <p style="margin-top: 25px; color: var(--deep-rose); font-weight: 600;">Wait, there's more...</p>
+        <p style="margin-top: 25px; color: var(--deep-rose); font-weight: 600;">🌼 Poem Continues</p>
     </div>
 
     <div class="card-container" id="card-wrap">
@@ -92,7 +93,7 @@
             <span class="emoji-header" id="emoji-display">🌸</span>
             <h2 id="title"></h2>
             <p id="text" class="typewriter"></p>
-            <button id="nextBtn" class="nav-btn" onclick="nextStep()">Next Page →</button>
+            <button id="nextBtn" class="nav-btn" onclick="nextStep()">Continue →</button>
         </div>
     </div>
 
@@ -100,16 +101,19 @@
         const music = document.getElementById('bg-music');
         
         const messages = [
-            { title: "🌸 Hey Avinya", text: "This isn’t anything dramatic. Just a quiet pause in a moving world where a thought chose to stay.", mood: "day", emoji: "🐰" },
-            { title: "✨ Connections", text: "Some connections don’t announce themselves. They arrive gently, through simple, honest conversations.", mood: "day", emoji: "🐱" },
-            { title: "🌷 Since November", text: "Distance hasn't stopped words from flowing naturally. Every exchange has been a quiet highlight.", mood: "sunset", emoji: "🐼" },
-            { title: "💫 You're Enough", text: "Just a gentle reminder that being you, exactly the way you are, is already more than enough.", mood: "sunset", emoji: "🐨" }
+            { title: "🌸 Hey Avinya", text: "This isn’t anything dramatic or important.\nJust a quiet pause in a moving world,\nwhere a thought chose to stay a little longer\nand turn into words.", mood: "day", emoji: "🐰" },
+            { title: "✨ Connections", text: "Some connections don’t announce themselves.\nThey arrive gently,\nthrough simple conversations,\nthrough moments that feel easy\nwithout needing an explanation.", mood: "day", emoji: "🐱" },
+            { title: "🌷 Distance", text: "There’s distance between where we are,\nbut it hasn’t stopped words from flowing naturally.\nSince November 2025,\nthose simple exchanges have added up\nto something quietly meaningful.", mood: "sunset", emoji: "🐼" },
+            { title: "🌙 Ease", text: "I like conversations that don’t feel forced,\nwhere laughter arrives without effort,\nand even silence feels comfortable\ninstead of awkward.", mood: "sunset", emoji: "🐨" },
+            { title: "💫 Enough", text: "This isn’t a message asking for anything.\nJust a gentle reminder that being you, Avinya,\nexactly the way you are,\nis already more than enough.", mood: "sunset", emoji: "💖" }
         ];
 
         const poems = [
-            { title: "🌙 Softly", text: "There is distance — like space between two notes of the same song. Not heavy, just present.", mood: "night", emoji: "🦊" },
-            { title: "⭐ Time", text: "Time behaves differently here. Unbothered by clocks, just the comfort of being understood.", mood: "night", emoji: "🐻" },
-            { title: "✍️ A Smile", text: "If this made you smile even for a single second, then it did exactly what it was meant to do.", mood: "night", emoji: "🦌" }
+            { title: "🌙 Softly", text: "There is distance —\nnot loud, not heavy,\njust quietly present,\nlike space between two notes of the same song.\nWords cross it without rushing,\nfinding their way into ordinary moments.", mood: "night", emoji: "🦊" },
+            { title: "💫 Time", text: "Time behaves differently there.\nDays move forward, nights arrive,\nyet some conversations stay suspended,\nunbothered by clocks or expectations.\nNothing asked, nothing promised.", mood: "night", emoji: "🐻" },
+            { title: "🌷 Thoughts", text: "Since November,\nthese moments have gathered quietly —\nnot as memories to hold tightly,\nbut as thoughts that return\nwhen the world grows still.", mood: "night", emoji: "🐹" },
+            { title: "🌼 Honesty", text: "Some connections aren’t meant\nto be explained or rushed.\nThey simply exist,\nsoft and steady,\nasking nothing more than honesty\nand time.", mood: "night", emoji: "🦌" },
+            { title: "✍️ For You", text: "If this little page managed to make you pause,\nor smile even for a second,\nthen I guess it did what it was meant to do.\n\n— Yatin", mood: "night", emoji: "🌸" }
         ];
 
         let index = 0;
@@ -118,7 +122,7 @@
 
         function initScenery() {
             const sc = document.getElementById('scenery-objects');
-            // Floating Clouds
+            // Clouds
             for(let i=0; i<4; i++) {
                 let c = document.createElement('div');
                 c.className = 'cloud';
@@ -127,24 +131,24 @@
                 c.style.animationDelay = (i * 5) + 's';
                 sc.appendChild(c);
             }
-            // Falling Petals
+            // Falling Nature Petals
             setInterval(() => {
                 let p = document.createElement('div');
                 p.className = 'petal';
-                p.innerHTML = '🌸';
+                p.innerHTML = (Math.random() > 0.5) ? '🌸' : '🍃';
                 p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                p.style.animationDuration = (Math.random() * 3 + 4) + 's';
                 sc.appendChild(p);
-                setTimeout(() => p.remove(), 5000);
-            }, 700);
+                setTimeout(() => p.remove(), 6000);
+            }, 800);
         }
 
         function startStory() {
             document.getElementById('intro').classList.add('open');
             music.volume = 0.5;
-            music.play().catch(e => console.log("Audio play interaction required"));
+            music.play();
             document.getElementById('music-btn').style.display = 'block';
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 
             setTimeout(() => {
                 document.getElementById('intro').style.display = 'none';
@@ -155,7 +159,7 @@
 
         function startPoem() {
             document.getElementById('poem-intro').classList.add('open');
-            confetti({ particleCount: 100, spread: 70 });
+            confetti({ particleCount: 150, spread: 80, colors: ['#d81b60', '#ffb7c5'] });
             setTimeout(() => {
                 document.getElementById('poem-intro').style.display = 'none';
                 document.getElementById('card-wrap').style.display = 'block';
@@ -194,9 +198,6 @@
                 } else {
                     el.classList.remove('typing');
                     isTyping = false;
-                    if(isPoemMode && index === poems.length -1) {
-                        document.getElementById('nextBtn').textContent = "With love, Yatin ❤";
-                    }
                 }
             }
             step();
@@ -209,12 +210,12 @@
             if (index < currentArray.length - 1) {
                 index++;
                 showPage();
-                if(index % 2 === 0) confetti({ particleCount: 40, spread: 50 });
+                if(index % 2 === 0) confetti({ particleCount: 50, spread: 60 });
             } else if (!isPoemMode) {
                 document.getElementById('card-wrap').style.display = 'none';
                 document.getElementById('poem-intro').style.display = 'block';
             } else {
-                confetti({ particleCount: 200, spread: 100 });
+                confetti({ particleCount: 300, spread: 150, origin: { y: 0.7 } });
             }
         }
 
